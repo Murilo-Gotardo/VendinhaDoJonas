@@ -22,32 +22,31 @@ class ProdutoControllerTest {
     }
 
     @Test
-    void testRetornaNullSeAdicionaProdutoSemNome() {
+    void testeRetornaNullSeAdicionaProdutoSemNome() {
         controller.adicionaProduto("", 20);
         assertNull(controller.getProdutos());
     }
 
     @Test
-    void testRetornaNullSeAdicionaProdutoSemValor() {
+    void testeRetornaNullSeAdicionaProdutoSemValor() {
         controller.adicionaProduto("pao", 0);
         assertNull(controller.getProdutos());
     }
 
     @Test
-    void testRetornaNullSeAdicionaProdutoComValorNegativo() {
+    void testeRetornaNullSeAdicionaProdutoComValorNegativo() {
         controller.adicionaProduto("pao", -1);
         assertNull(controller.getProdutos());
     }
 
     @Test
-    void testRetornaNovoProduto(){
+    void testeRetornaNovoProduto(){
         controller.adicionaProduto("pao", 20);
 
         assertNotNull(controller.getProdutos());
         assertEquals("pao", controller.getProdutos().get(0).getNome());
         assertEquals(20,    controller.getProdutos().get(0).getValor());
     }
-
 
     @Test
     void testeNaoRemoveNadaSeNomeNaoExiste() {
@@ -61,24 +60,58 @@ class ProdutoControllerTest {
 
     @Test
     void testeNaoRemoveNadaSeListaVazia(){
-        manager.removeProduto("livro");
-        assertEquals(0, manager.getProdutos().size());
+        controller.removeProduto("livro");
+        assertEquals(0, controller.getProdutos().size());
     }
 
     @Test
     void testeRemoveProdutoDeNomeCorrespondente(){
-        manager.adicionaProduto("pao", 20);
-        manager.adicionaProduto("livro", 60.5);
+        controller.adicionaProduto("pao", 20);
+        controller.adicionaProduto("livro", 60.5);
 
-        manager.removeProduto("pao");
+        controller.removeProduto("pao");
 
-        assertEquals(1, manager.getProdutos().size());
-        assertEquals("livro", manager.getProdutos().getFirst().getNome());
+        assertEquals(1, controller.getProdutos().size());
+        assertEquals("livro", controller.getProdutos().get(0).getNome());
     }
 
 
     @Test
-    void alteraProduto() {
+    void testeNaoAlteraProdutoSeListaVazia() {
+        controller.alteraProduto(1, "caderno", 12.89);
+        assertEquals(0, controller.getProdutos().size());
+    }
 
+    @Test
+    void testeNaoAlteraProdutoSeIdNaoExiste() {
+        controller.adicionaProduto("pao", 20);
+        controller.alteraProduto(3, "caderno", 12.89);
+
+        assertEquals("pao", controller.getProdutos().get(0).getNome());
+    }
+
+    @Test
+    void testeNaoAlteraProdutoSeNomeVazio() {
+        controller.adicionaProduto("pao", 20);
+        controller.alteraProduto(0, "", 12.89);
+
+        assertEquals("pao", controller.getProdutos().get(0).getNome());
+    }
+
+    @Test
+    void testeNaoAlteraProdutoSeValorNegativo(){
+        controller.adicionaProduto("pao", 20);
+        controller.alteraProduto(0, "pao", -1);
+
+        assertEquals(20, controller.getProdutos().get(0).getValor());
+    }
+
+    @Test
+    void testeAlteraProdutoComIdCorrespondente() {
+        controller.adicionaProduto("pao", 20);
+        controller.alteraProduto(0, "caderno", 60.5);
+
+        assertEquals("caderno", controller.getProdutos().get(0).getNome());
+        assertEquals(60.5, controller.getProdutos().get(0).getValor());
     }
 }
