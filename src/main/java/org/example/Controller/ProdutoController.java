@@ -26,8 +26,12 @@ public class ProdutoController {
         }
     }
 
-    public void alteraProduto(String nome, double valor) {
-
+    public void alteraProduto(int id, String novoNome, double novoValor) {
+        if (!produtos.isEmpty() && produtos.size() > id) {
+            if (!novoNome.equalsIgnoreCase("") && novoValor > 0) {
+                produtos.get(id).setNome(novoNome);
+                produtos.get(id).setValor(novoValor);
+            }
+        }
     }
-
 }

@@ -19,4 +19,12 @@ public class Produto {
     public double getValor() {
         return valor;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
 }

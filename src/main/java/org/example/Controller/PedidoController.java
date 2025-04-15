@@ -1,9 +1,8 @@
-﻿package org.example.Controller;
+package org.example.Controller;
 
 import org.example.Models.Pedido;
 import org.example.Models.Produto;
 
-import java.util.List;
 
 public class PedidoController {
     public void adicionarAoCarrinho(Produto produto, Pedido pedido){
