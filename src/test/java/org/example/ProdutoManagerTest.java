@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.Controller.ProdutoController;
+import org.example.Services.ProdutoService;
 import org.example.Models.Produto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,15 +10,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProdutoControllerTest {
+class ProdutoServiceTest {
 
-    private ProdutoController controller;
+    private ProdutoService controller;
     private List<Produto> produtos;
 
     @BeforeEach
     void setUp() {
         this.produtos = new ArrayList<>();
-        this.controller = new ProdutoController(produtos);
+        this.controller = new ProdutoService(produtos);
     }
 
     @Test

@@ -1,4 +1,4 @@
-﻿package org.example.Models.Enums;
+package org.example.Models.Enums;
 
 public enum TipoPagamentoEnum {
     PIX,
