@@ -12,107 +12,106 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProdutoServiceTest {
 
-    private ProdutoService controller;
-    private List<Produto> produtos;
+    private ProdutoService produtoService;
 
     @BeforeEach
     void setUp() {
-        this.produtos = new ArrayList<>();
-        this.controller = new ProdutoService(produtos);
+        List<Produto> produtos = new ArrayList<>();
+        this.produtoService = new ProdutoService(produtos);
     }
 
     @Test
     void testeRetornaNullSeAdicionaProdutoSemNome() {
-        controller.adicionaProduto("", 20);
-        assertEquals(0, controller.getProdutos().size());
+        produtoService.adicionaProduto("", 20);
+        assertEquals(0, produtoService.getProdutos().size());
     }
 
     @Test
     void testeRetornaNullSeAdicionaProdutoSemValor() {
-        controller.adicionaProduto("pao", 0);
-        assertEquals(0, controller.getProdutos().size());
+        produtoService.adicionaProduto("pao", 0);
+        assertEquals(0, produtoService.getProdutos().size());
     }
 
     @Test
     void testeRetornaNullSeAdicionaProdutoComValorNegativo() {
-        controller.adicionaProduto("pao", -1);
-        assertEquals(0, controller.getProdutos().size());
+        produtoService.adicionaProduto("pao", -1);
+        assertEquals(0, produtoService.getProdutos().size());
     }
 
     @Test
     void testeRetornaNovoProduto(){
-        controller.adicionaProduto("pao", 20);
+        produtoService.adicionaProduto("pao", 20);
 
-        assertNotNull(controller.getProdutos());
-        assertEquals("pao", controller.getProdutos().get(0).getNome());
-        assertEquals(20,    controller.getProdutos().get(0).getValor());
+        assertNotNull(produtoService.getProdutos());
+        assertEquals("pao", produtoService.getProdutos().getFirst().getNome());
+        assertEquals(20,    produtoService.getProdutos().getFirst().getValor());
     }
 
 
     @Test
     void testeNaoRemoveNadaSeNomeNaoExiste() {
-        controller.adicionaProduto("pao", 20);
+        produtoService.adicionaProduto("pao", 20);
 
-        controller.removeProduto("livro");
+        produtoService.removeProduto("livro");
 
-        assertEquals(1, controller.getProdutos().size());
-        assertEquals("pao", controller.getProdutos().get(0).getNome());
+        assertEquals(1, produtoService.getProdutos().size());
+        assertEquals("pao", produtoService.getProdutos().getFirst().getNome());
     }
 
     @Test
     void testeNaoRemoveNadaSeListaVazia(){
-        controller.removeProduto("livro");
-        assertEquals(0, controller.getProdutos().size());
+        produtoService.removeProduto("livro");
+        assertEquals(0, produtoService.getProdutos().size());
     }
 
     @Test
     void testeRemoveProdutoDeNomeCorrespondente(){
-        controller.adicionaProduto("pao", 20);
-        controller.adicionaProduto("livro", 60.5);
+        produtoService.adicionaProduto("pao", 20);
+        produtoService.adicionaProduto("livro", 60.5);
 
-        controller.removeProduto("pao");
+        produtoService.removeProduto("pao");
 
-        assertEquals(1, controller.getProdutos().size());
-        assertEquals("livro", controller.getProdutos().get(0).getNome());
+        assertEquals(1, produtoService.getProdutos().size());
+        assertEquals("livro", produtoService.getProdutos().getFirst().getNome());
     }
 
 
     @Test
     void testeNaoAlteraProdutoSeListaVazia() {
-        controller.alteraProduto(1, "caderno", 12.89);
-        assertEquals(0, controller.getProdutos().size());
+        produtoService.alteraProduto(1, "caderno", 12.89);
+        assertEquals(0, produtoService.getProdutos().size());
     }
 
     @Test
     void testeNaoAlteraProdutoSeIdNaoExiste() {
-        controller.adicionaProduto("pao", 20);
-        controller.alteraProduto(3, "caderno", 12.89);
+        produtoService.adicionaProduto("pao", 20);
+        produtoService.alteraProduto(3, "caderno", 12.89);
 
-        assertEquals("pao", controller.getProdutos().get(0).getNome());
+        assertEquals("pao", produtoService.getProdutos().getFirst().getNome());
     }
 
     @Test
     void testeNaoAlteraProdutoSeNomeVazio() {
-        controller.adicionaProduto("pao", 20);
-        controller.alteraProduto(0, "", 12.89);
+        produtoService.adicionaProduto("pao", 20);
+        produtoService.alteraProduto(0, "", 12.89);
 
-        assertEquals("pao", controller.getProdutos().get(0).getNome());
+        assertEquals("pao", produtoService.getProdutos().getFirst().getNome());
     }
 
     @Test
     void testeNaoAlteraProdutoSeValorNegativo(){
-        controller.adicionaProduto("pao", 20);
-        controller.alteraProduto(0, "pao", -1);
+        produtoService.adicionaProduto("pao", 20);
+        produtoService.alteraProduto(0, "pao", -1);
 
-        assertEquals(20, controller.getProdutos().get(0).getValor());
+        assertEquals(20, produtoService.getProdutos().getFirst().getValor());
     }
 
     @Test
     void testeAlteraProdutoComIdCorrespondente() {
-        controller.adicionaProduto("pao", 20);
-        controller.alteraProduto(0, "caderno", 60.5);
+        produtoService.adicionaProduto("pao", 20);
+        produtoService.alteraProduto(0, "caderno", 60.5);
 
-        assertEquals("caderno", controller.getProdutos().get(0).getNome());
-        assertEquals(60.5, controller.getProdutos().get(0).getValor());
+        assertEquals("caderno", produtoService.getProdutos().getFirst().getNome());
+        assertEquals(60.5, produtoService.getProdutos().getFirst().getValor());
     }
 }
