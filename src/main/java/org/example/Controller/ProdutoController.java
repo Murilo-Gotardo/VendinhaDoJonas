@@ -1,12 +1,14 @@
-package org.example;
+package org.example.Controller;
+
+import org.example.Models.Produto;
 
 import java.util.List;
 
-public class ProdutoManager {
+public class ProdutoController {
 
     private List<Produto> produtos;
 
-    public ProdutoManager(List<Produto> produtos) {
+    public ProdutoController(List<Produto> produtos) {
         this.produtos = produtos;
     }
 

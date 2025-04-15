@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.Controller.ProdutoController;
+import org.example.Models.Produto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,53 +10,53 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProdutoManagerTest {
+class ProdutoControllerTest {
 
-    private ProdutoManager manager;
+    private ProdutoController controller;
     private List<Produto> produtos;
 
     @BeforeEach
     void setUp() {
         this.produtos = new ArrayList<>();
-        this.manager = new ProdutoManager(produtos);
+        this.controller = new ProdutoController(produtos);
     }
 
     @Test
     void testRetornaNullSeAdicionaProdutoSemNome() {
-        manager.adicionaProduto("", 20);
-        assertNull(manager.getProdutos());
+        controller.adicionaProduto("", 20);
+        assertNull(controller.getProdutos());
     }
 
     @Test
     void testRetornaNullSeAdicionaProdutoSemValor() {
-        manager.adicionaProduto("pao", 0);
-        assertNull(manager.getProdutos());
+        controller.adicionaProduto("pao", 0);
+        assertNull(controller.getProdutos());
     }
 
     @Test
     void testRetornaNullSeAdicionaProdutoComValorNegativo() {
-        manager.adicionaProduto("pao", -1);
-        assertNull(manager.getProdutos());
+        controller.adicionaProduto("pao", -1);
+        assertNull(controller.getProdutos());
     }
 
     @Test
     void testRetornaNovoProduto(){
-        manager.adicionaProduto("pao", 20);
+        controller.adicionaProduto("pao", 20);
 
-        assertNotNull(manager.getProdutos());
-        assertEquals("pao", manager.getProdutos().getFirst().getNome());
-        assertEquals(20,    manager.getProdutos().getFirst().getValor());
+        assertNotNull(controller.getProdutos());
+        assertEquals("pao", controller.getProdutos().get(0).getNome());
+        assertEquals(20,    controller.getProdutos().get(0).getValor());
     }
 
 
     @Test
     void testeNaoRemoveNadaSeNomeNaoExiste() {
-        manager.adicionaProduto("pao", 20);
+        controller.adicionaProduto("pao", 20);
 
-        manager.removeProduto("livro");
+        controller.removeProduto("livro");
 
-        assertEquals(1, manager.getProdutos().size());
-        assertEquals("pao", manager.getProdutos().getFirst().getNome());
+        assertEquals(1, controller.getProdutos().size());
+        assertEquals("pao", controller.getProdutos().get(0).getNome());
     }
 
     @Test
