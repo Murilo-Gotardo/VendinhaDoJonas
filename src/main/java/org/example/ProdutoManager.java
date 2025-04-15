@@ -24,8 +24,16 @@ public class ProdutoManager {
         }
     }
 
-    public void alteraProduto(String nome, double valor) {
-
+    public void alteraProduto(String nome, double novoValor, String novoNome) {
+        if (!produtos.isEmpty()){
+            if (!novoNome.equalsIgnoreCase("") && novoValor > 0) {
+                for (Produto produto : produtos) {
+                    if (produto.getNome().equalsIgnoreCase(nome)) {
+                        produto.setNome(novoNome);
+                        produto.setValor(novoValor);
+                    }
+                }
+            }
+        }
     }
-
 }

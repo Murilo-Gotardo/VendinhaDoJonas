@@ -59,16 +59,24 @@ class ProdutoManagerTest {
 
     @Test
     void testeNaoRemoveNadaSeListaVazia(){
-
+        manager.removeProduto("livro");
+        assertEquals(0, manager.getProdutos().size());
     }
 
     @Test
     void testeRemoveProdutoDeNomeCorrespondente(){
+        manager.adicionaProduto("pao", 20);
+        manager.adicionaProduto("livro", 60.5);
 
+        manager.removeProduto("pao");
+
+        assertEquals(1, manager.getProdutos().size());
+        assertEquals("livro", manager.getProdutos().getFirst().getNome());
     }
 
 
     @Test
     void alteraProduto() {
+
     }
 }
