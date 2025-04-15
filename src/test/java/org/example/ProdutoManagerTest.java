@@ -13,30 +13,29 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProdutoControllerTest {
 
     private ProdutoController controller;
-    private List<Produto> produtos;
 
     @BeforeEach
     void setUp() {
-        this.produtos = new ArrayList<>();
+        List<Produto> produtos = new ArrayList<>();
         this.controller = new ProdutoController(produtos);
     }
 
     @Test
     void testeRetornaNullSeAdicionaProdutoSemNome() {
         controller.adicionaProduto("", 20);
-        assertNull(controller.getProdutos());
+        assertEquals(0, controller.getProdutos().size());
     }
 
     @Test
     void testeRetornaNullSeAdicionaProdutoSemValor() {
         controller.adicionaProduto("pao", 0);
-        assertNull(controller.getProdutos());
+        assertEquals(0, controller.getProdutos().size());
     }
 
     @Test
     void testeRetornaNullSeAdicionaProdutoComValorNegativo() {
         controller.adicionaProduto("pao", -1);
-        assertNull(controller.getProdutos());
+        assertEquals(0, controller.getProdutos().size());
     }
 
     @Test
