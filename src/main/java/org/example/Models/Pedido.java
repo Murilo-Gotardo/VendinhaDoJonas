@@ -6,15 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pedido {
-
     private double valorTotal = 0;
-    private List<Produto> carrinho;
-    private TipoPagamentoEnum metodoDePagamentos;
-
-    public Pedido(TipoPagamentoEnum metodoDePagamentos){
-        carrinho = new ArrayList<>();
-        metodoDePagamentos = metodoDePagamentos;
-    }
+    private List<Produto> carrinho = new ArrayList<>();
+    private TipoPagamentoEnum metodoDePagamento;
 
     public double getValorTotal() {
         return valorTotal;
@@ -28,4 +22,11 @@ public class Pedido {
         return carrinho;
     }
 
+    public TipoPagamentoEnum getMetodoDePagamento() {
+        return metodoDePagamento;
+    }
+
+    public void setMetodoDePagamento(TipoPagamentoEnum metodoDePagamento) {
+        this.metodoDePagamento = metodoDePagamento;
+    }
 }
