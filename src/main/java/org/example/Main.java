@@ -188,11 +188,39 @@ public class Main {
     }
 
     private static void escolherParcelamento() {
-        // TODO: Implementar escolherParcelamento
+        try {
+            if (!pedidoService.validarPossibilidadeDeParcelas(pedido)) {
+                System.out.println("O valor do pedido é insuficiente para parcelamento (mínimo R$20,00).");
+                return;
+            }
+
+            System.out.print("Informe o número de parcelas desejadas: ");
+            int parcelas = Integer.parseInt(String.valueOf(scanner.nextInt()));
+            scanner.nextLine();
+
+            boolean sucesso = pedidoService.definirParcelas(pedido, parcelas);
+            if (sucesso) {
+                System.out.println("Pedido parcelado em " + parcelas + "x.");
+            } else {
+                System.out.println("Não foi possível definir o parcelamento.");
+            }
+
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Erro ao definir parcelas: " + ex.getMessage());
+        }
     }
 
     private static void finalizarPedido() {
-        // TODO: Implementar finalizarPedido
+        boolean finalizado = pedidoService.finalizarPedido(pedido);
+
+        if (finalizado) {
+            System.out.println("-----------------------------------");
+            System.out.println("Obrigado por comprar na Vendinha do Jonas!");
+            System.exit(0);
+        } else {
+            System.out.println("Não foi possível finalizar o pedido.");
+            System.out.println("-----------------------------------");
+        }
     }
 
     // --- MÉTODOS DE ENTRADA AUXILIARES ---

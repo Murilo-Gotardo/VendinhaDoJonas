@@ -9,6 +9,7 @@ public class Pedido {
     private double valorTotal = 0;
     private List<Produto> carrinho = new ArrayList<>();
     private TipoPagamentoEnum metodoDePagamento;
+    private int parcelas;
 
     public double getValorTotal() {
         return valorTotal;
@@ -28,5 +29,17 @@ public class Pedido {
 
     public void setMetodoDePagamento(TipoPagamentoEnum metodoDePagamento) {
         this.metodoDePagamento = metodoDePagamento;
+    }
+
+    public void setCarrinho(List<Produto> carrinho) {
+        this.carrinho = carrinho;
+    }
+
+    public int getParcelas() {
+        return parcelas;
+    }
+
+    public void setParcelas(int parcelas) {
+        this.parcelas = parcelas;
     }
 }
