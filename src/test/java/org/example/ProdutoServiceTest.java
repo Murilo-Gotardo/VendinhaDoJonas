@@ -21,97 +21,80 @@ class ProdutoServiceTest {
     }
 
     @Test
-    void testeRetornaNullSeAdicionaProdutoSemNome() {
-        produtoService.adicionaProduto("", 20);
+    void testeRetornaFalseSeAdicionaProdutoSemNome() {
+        assertFalse(produtoService.adicionaProduto("", 20));
         assertEquals(0, produtoService.getProdutos().size());
     }
 
     @Test
-    void testeRetornaNullSeAdicionaProdutoSemValor() {
-        produtoService.adicionaProduto("pao", 0);
+    void testeRetornaFalseSeAdicionaProdutoSemValor() {
+        assertFalse(produtoService.adicionaProduto("pao", 0));
         assertEquals(0, produtoService.getProdutos().size());
     }
 
     @Test
-    void testeRetornaNullSeAdicionaProdutoComValorNegativo() {
-        produtoService.adicionaProduto("pao", -1);
+    void testeRetornaFalseSeAdicionaProdutoComValorNegativo() {
+        assertFalse(produtoService.adicionaProduto("pao", -1));
         assertEquals(0, produtoService.getProdutos().size());
     }
 
     @Test
-    void testeRetornaNovoProduto(){
-        produtoService.adicionaProduto("pao", 20);
-
+    void testeRetornaTrueAoAddNovoProduto(){
+        assertTrue(produtoService.adicionaProduto("pao", 20));
         assertNotNull(produtoService.getProdutos());
-        assertEquals("pao", produtoService.getProdutos().getFirst().getNome());
-        assertEquals(20,    produtoService.getProdutos().getFirst().getValor());
     }
 
 
     @Test
-    void testeNaoRemoveNadaSeNomeNaoExiste() {
+    void testeRetornaNullSeIdNaoExiste() {
         produtoService.adicionaProduto("pao", 20);
 
-        produtoService.removeProduto("livro");
-
+        assertNull(produtoService.removeProduto(3));
         assertEquals(1, produtoService.getProdutos().size());
         assertEquals("pao", produtoService.getProdutos().getFirst().getNome());
     }
 
     @Test
-    void testeNaoRemoveNadaSeListaVazia(){
-        produtoService.removeProduto("livro");
+    void testRetornaNullSeListaVazia(){
+        assertNull(produtoService.removeProduto(2));
         assertEquals(0, produtoService.getProdutos().size());
     }
 
     @Test
-    void testeRemoveProdutoDeNomeCorrespondente(){
+    void testeRetornaProdutoRemovido(){
         produtoService.adicionaProduto("pao", 20);
         produtoService.adicionaProduto("livro", 60.5);
 
-        produtoService.removeProduto("pao");
-
-        assertEquals(1, produtoService.getProdutos().size());
-        assertEquals("livro", produtoService.getProdutos().getFirst().getNome());
+        assertEquals(produtoService.getProdutos().getFirst(), produtoService.removeProduto(0));
     }
 
 
     @Test
-    void testeNaoAlteraProdutoSeListaVazia() {
-        produtoService.alteraProduto(1, "caderno", 12.89);
-        assertEquals(0, produtoService.getProdutos().size());
+    void testeRetornaFalseSeListaVazia() {
+        assertFalse(produtoService.modificaProduto(1, "caderno", 12.89));
     }
 
     @Test
-    void testeNaoAlteraProdutoSeIdNaoExiste() {
+    void testeRetornaFalseSeIdNaoExiste() {
         produtoService.adicionaProduto("pao", 20);
-        produtoService.alteraProduto(3, "caderno", 12.89);
-
-        assertEquals("pao", produtoService.getProdutos().getFirst().getNome());
+        assertFalse(produtoService.modificaProduto(3, "caderno", 12.89));
     }
 
     @Test
-    void testeNaoAlteraProdutoSeNomeVazio() {
+    void testeRetornaFalseSeNomeVazio() {
         produtoService.adicionaProduto("pao", 20);
-        produtoService.alteraProduto(0, "", 12.89);
-
-        assertEquals("pao", produtoService.getProdutos().getFirst().getNome());
+        assertFalse(produtoService.modificaProduto(0, "", 12.89));
     }
 
     @Test
-    void testeNaoAlteraProdutoSeValorNegativo(){
+    void testeRetonaFalseSeValorNegativo(){
         produtoService.adicionaProduto("pao", 20);
-        produtoService.alteraProduto(0, "pao", -1);
-
-        assertEquals(20, produtoService.getProdutos().getFirst().getValor());
+        assertFalse(produtoService.modificaProduto(0, "caderno", -1));
     }
 
     @Test
-    void testeAlteraProdutoComIdCorrespondente() {
+    void testeRetornaTrueAoModificarProduto() {
         produtoService.adicionaProduto("pao", 20);
-        produtoService.alteraProduto(0, "caderno", 60.5);
-
-        assertEquals("caderno", produtoService.getProdutos().getFirst().getNome());
-        assertEquals(60.5, produtoService.getProdutos().getFirst().getValor());
+        assertTrue(produtoService.modificaProduto(0, "caderno", 12.89));
     }
 }

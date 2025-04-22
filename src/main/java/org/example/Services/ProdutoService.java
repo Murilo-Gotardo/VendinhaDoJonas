@@ -6,32 +6,39 @@ import java.util.List;
 
 public class ProdutoService {
 
-    private List<Produto> produtos;
+    private List<Produto> produtosEstoque;
 
     public ProdutoService(List<Produto> produtos) {
-        this.produtos = produtos;
+        this.produtosEstoque = produtos;
     }
 
     public List<Produto> getProdutos() {
-        return produtos;
+        return produtosEstoque;
     }
 
-    public void adicionaProduto(String nome, double valor) {
-        if (!nome.equalsIgnoreCase("") && valor > 0) produtos.add(new Produto(nome, valor));
-    }
-
-    public void removeProduto(String nome) {
-        if (!produtos.isEmpty()){
-            produtos.removeIf(produto -> produto.getNome().equalsIgnoreCase(nome));
+    public boolean adicionaProduto(String nome, double valor) {
+        if (!nome.equalsIgnoreCase("") && valor > 0) {
+            produtosEstoque.add(new Produto(nome, valor));
+            return true;
         }
+        return false;
     }
 
-    public void alteraProduto(int id, String novoNome, double novoValor) {
-        if (!produtos.isEmpty() && produtos.size() > id) {
+    public Produto removeProduto(int id) {
+        if (!produtosEstoque.isEmpty() && id < produtosEstoque.size()) {
+            return produtosEstoque.remove(id);
+        }
+        return null;
+    }
+
+    public boolean modificaProduto(int id, String novoNome, double novoValor) {
+        if (!produtosEstoque.isEmpty() && produtosEstoque.size() > id) {
             if (!novoNome.equalsIgnoreCase("") && novoValor > 0) {
-                produtos.get(id).setNome(novoNome);
-                produtos.get(id).setValor(novoValor);
+                produtosEstoque.get(id).setNome(novoNome);
+                produtosEstoque.get(id).setValor(novoValor);
+                return true;
             }
         }
+        return false;
     }
 }
