@@ -23,6 +23,7 @@ public class Main {
         produtosEstoque.add(new Produto("pao", 20));
         produtosEstoque.add(new Produto("bolacha", 3));
         produtosEstoque.add(new Produto("queijo", 12.9));
+        produtosEstoque.add(new Produto("vinho", 45.89));
 
         while (true) {
             exibirMenuPrincipal();
@@ -111,8 +112,13 @@ public class Main {
         System.out.print("Nome do produto: ");
         String nome = scanner.nextLine();
         double preco = lerDouble();
-        produtosEstoque.add(new Produto(nome, preco));
-        System.out.println("Produto adicionado com sucesso!");
+        boolean sucesso = produtoService.adicionaProduto(nome, preco);
+
+        if (sucesso) {
+            System.out.println("Produto adicionado com sucesso.");
+        } else {
+            System.out.println("Erro ao adicionar produto.");
+        }
     }
 
     private static void listarEstoque() {
@@ -124,7 +130,23 @@ public class Main {
     }
 
     private static void modificarProduto() {
-        // TODO: Implementar modificarProduto
+        listarEstoque();
+        int escolha = lerInt("Digite o número do produto que deseja editar: ");
+        if (escolha < 1 || escolha > produtosEstoque.size()) {
+            System.out.println("Produto inváido.");
+            return;
+        }
+        System.out.print("Novo nome do produto: ");
+        String novoNome = scanner.nextLine();
+        System.out.print("Novo valor do produto: ");
+        double novoPreco = lerDouble();
+
+        boolean sucesso = produtoService.modificaProduto(escolha - 1, novoNome, novoPreco);
+        if (sucesso) {
+            System.out.println("Produto alterado com sucesso.");
+        } else {
+            System.out.println("Não foi possível alterar o produto.");
+        }
     }
 
     private static void removerProduto() {
@@ -135,8 +157,14 @@ public class Main {
             return;
         }
 
-        Produto removido = produtosEstoque.remove(escolha - 1);
-        System.out.println("Produto '" + removido.getNome() + "' removido com sucesso.");
+        Produto removido = produtoService.removeProduto(escolha - 1);
+        if (removido != null) {
+            System.out.println("Produto '" + removido.getNome() + "' removido com sucesso.");
+
+        }
+        else {
+            System.out.println("Não foi possível remover o produto.");
+        }
     }
 
     private static void adicionarProdutoAoCarrinho() {
@@ -237,7 +265,7 @@ public class Main {
     }
 
     private static double lerDouble() {
-        System.out.print("Preço: " + " ");
+        System.out.print("Preço: ");
         while (!scanner.hasNextDouble()) {
             System.out.print("Digite um número válido: ");
             scanner.next();
