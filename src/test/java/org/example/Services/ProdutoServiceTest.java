@@ -1,6 +1,5 @@
-package org.example;
+package org.example.Services;
 
-import org.example.Services.ProdutoService;
 import org.example.Models.Produto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
