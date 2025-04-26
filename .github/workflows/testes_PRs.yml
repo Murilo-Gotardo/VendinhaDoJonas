@@ -23,4 +23,10 @@ jobs:
         run: mvn compile
 
       - name: Executar testes
-        run: mvn test
+        run: mvn verify
+
+      - name: Enviar cobertura para Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: target/site/jacoco/jacoco.xml
